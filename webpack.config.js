@@ -30,7 +30,7 @@ module.exports = {
                     'file-loader'
                 ]
             },
-            // 加载csv tsv xml文件
+            // 加载csv tsv xml文件 
             {
                 test: /\.(csv|tsv)$/,
                 use: [
