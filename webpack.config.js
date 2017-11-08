@@ -8,7 +8,7 @@ module.exports = {
     },
     module: {
         rules: [
-            // 管理css
+            // 加载css
             {
                 test: /\.css$/,
                 use: [
@@ -16,9 +16,16 @@ module.exports = {
                     'css-loader'
                 ]
             },
-            // 管理图片
+            // 加载图片
             {
                 test: /\.(png|svg|jpg|gif)$/,
+                use: [
+                    'file-loader'
+                ]
+            },
+            // 加载字体
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
                     'file-loader'
                 ]
