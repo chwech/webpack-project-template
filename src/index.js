@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import print from './print'
+
 import './index.css';
 import jpg from './test.jpg';
 console.log(jpg);
@@ -17,5 +19,5 @@ function component() {
     element.appendChild(myIcon);
     return element;
 }
-
+print();
 document.body.appendChild(component());
