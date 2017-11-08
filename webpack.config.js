@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
     entry: {
         app: './src/index.js',
-        print: './src/print.js'
+        test: './src/views/test/index.js'
     },
     output: {
         filename: '[name].bundle.js',
@@ -52,7 +52,19 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(['dist']), // 构建前清理dist文件夹
         new HtmlWebpackPlugin({
-            title: 'Output Management'
+            title: 'Output Management', // 设置生成html文件title
+            inject: 'head', // 插入js的位置
+            favicon: './src/favicon.ico', // 插入favicon
+            minify: {
+                removeAttributeQuotes: true // 移除属性的引号
+            }, // 压缩html文件
+            chunks: ['app']
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'test.html', // 生成 html 文件的文件名。默认为 index.html.
+            template: './src/views/test/test.html', // 使用特定的模板生成html
+            inject: 'body',
+            chunks: ['test'] // 要引用的chunk
         })
     ]
 };
