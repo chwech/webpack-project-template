@@ -2,6 +2,8 @@ import _ from 'lodash';
 import './index.css';
 import jpg from './test.jpg';
 console.log(jpg);
+import Data from './data.xml';
+console.log(Data);
 function component() {
     var element = document.createElement('div');
 
