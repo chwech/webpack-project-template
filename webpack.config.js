@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
     entry: {
         app: './src/index.js',
@@ -65,6 +66,9 @@ module.exports = {
             template: './src/views/test/test.html', // 使用特定的模板生成html
             inject: 'body',
             chunks: ['test'] // 要引用的chunk
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common' // 指定公共 bundle 的名称。
         })
     ]
 };
