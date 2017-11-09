@@ -2,6 +2,7 @@ import _ from 'lodash';
 import print from './print'
 
 import './index.css';
+import './common/css/common.css';
 import jpg from './test.jpg';
 console.log(jpg);
 import Data from './data.xml';
