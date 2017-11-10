@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     entry: {
         app: './src/index.js',
@@ -19,7 +20,12 @@ module.exports = {
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                    
-                    use: "css-loader"
+                    use: {
+                        loader: "css-loader",
+                        options: {
+                            minimize: true
+                        }
+                    }
                 })
             },
             // // 加载css
@@ -60,6 +66,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new UglifyJSPlugin(),
         // 抽取css
         new ExtractTextPlugin({
             filename: "[name].styles.css", // 当配置了多个入口chunk, 必须配置[name]为每个chunk生成一个css文件
