@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --config webpack.dev.config.js --open --color --progress",
+    "build": "webpack --config webpack.build.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "./node_modules/.bin/eslint --fix *.js"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +27,7 @@
     "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.7",
+    "webpack-merge": "^4.1.1",
     "xml-loader": "^1.2.1"
   },
   "dependencies": {

@@ -1,3 +1,3 @@
 export default function () {
-    console.log("print模块")
+  console.log("print模块")
 }

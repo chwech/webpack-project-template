@@ -1,24 +1,25 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const baseWebpackConfig = require('./webpack.base.config.js')
+const merge = require('webpack-merge')
 
-module.exports = {
-  entry: {
-    app: './src/index.js',
-    print: './src/print.js'
-  },
+module.exports = merge(baseWebpackConfig, {
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    port: 3000
   },
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'Development'
-    })
-  ],
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+  module: {
+    rules: [
+      // eslint
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          // eslint options (if necessary)
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
+    ]
   }
-}
+})
+
