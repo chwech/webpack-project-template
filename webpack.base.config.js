@@ -1,26 +1,33 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const glob = require('glob')
+const files = glob.sync('./src/views/*/*.html')
+let entry = {}
+let plugins = []
+
+files.forEach((file) => {
+  let viewName = file.slice(file.lastIndexOf('/') + 1)
+  const name = viewName.split('.')[0]
+
+  entry[name] = `./src/views/${name}/index.js`
+  plugins.push(
+    new HtmlWebpackPlugin({
+      filename: viewName, // 生成 html 文件的文件名。默认为 index.html.
+      template: file, // 使用特定的模板生成html
+      inject: 'body',
+      chunks: ['common', name] // 要引用的chunk
+    })
+  )
+})
 
 module.exports = {
-  entry: {
-    app: './src/index.js',
-    test: './src/views/test/index.js'
-  },
+  entry: entry,
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
-
-      // 加载css
-      // {
-      //   test: /\.css$/,
-      //   use: [
-      //     'style-loader',
-      //     'css-loader'
-      //   ]
-      // },
 
       // 加载图片
       {
@@ -53,21 +60,5 @@ module.exports = {
       },
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Output Management', // 设置生成html文件title
-      inject: true, // 插入js的位置
-      favicon: './src/favicon.ico', // 插入favicon
-      minify: {
-        removeAttributeQuotes: true // 移除属性的引号
-      }, // 压缩html文件
-      chunks: ['common', 'app']
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'test.html', // 生成 html 文件的文件名。默认为 index.html.
-      template: './src/views/test/test.html', // 使用特定的模板生成html
-      inject: 'body',
-      chunks: ['common', 'test'] // 要引用的chunk
-    }),
-  ]
+  plugins: [].concat(plugins)
 }

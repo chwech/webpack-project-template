@@ -9,6 +9,15 @@ module.exports = merge(baseWebpackConfig, {
   },
   module: {
     rules: [
+
+      // 加载css
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
       // eslint
       {
         test: /\.js$/,
